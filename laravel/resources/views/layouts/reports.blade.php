@@ -314,7 +314,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('charts.buyingpower') }}" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Buying Power</p>
                                     </a>
@@ -425,7 +425,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('msbarang.index') }}" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Master Barang</p>
                                     </a>
@@ -452,7 +452,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('auth.users') }}" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Users</p>
                                     </a>
@@ -460,7 +460,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Roles</p>
                                     </a>
@@ -468,17 +468,9 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Permission</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('auth.customers') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Customers</p>
                                     </a>
                                 </li>
                             </ul>
@@ -894,10 +886,10 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2022 <a href="https://www.instagram.com/medbox.id/">Apotek Medbox</a>.</strong>
+            <strong>Copyright &copy; 2024 LPG</a>.</strong>
             All rights reserved.
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 0.2.0
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0.0
             </div>
         </footer>
 

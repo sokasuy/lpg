@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LogbookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +34,9 @@ Route::middleware(['auth'])->group(
         Route::post('/home/refresh-periode-logbook-agen', [HomeController::class, 'refreshPeriodeLogbookAgen'])->name('home.refreshperiodelogbookagen');
         Route::post('/home/refresh-pangkalan-logbook', [HomeController::class, 'refreshPangkalanLogbook'])->name('home.refreshpangkalanlogbook');
         Route::post('/home/refresh-agen-logbook-chart', [HomeController::class, 'refreshAgenLogbookChart'])->name('home.refreshagenlogbookchart');
+
+        //PAGES REPORTS LOGBOOK
+        Route::get('/reports/logbook', [LogbookController::class, 'reportLogbook'])->name('reports.logbook');
+        Route::post('/reports/get-logbook', [LogbookController::class, 'getReportLogbook'])->name('reports.getlogbook');
     }
 );
