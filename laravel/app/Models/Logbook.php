@@ -19,13 +19,13 @@ class Logbook extends Model
 
     public static $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    public static function getPeriodeLogbook($kodeAgen)
+    public static function getPeriodeMap($kodeAgen)
     {
-        $dataPeriodeLogbook = self::on()->select(DB::raw("to_char(tanggal, 'Month') ||''|| Extract('Year' from tanggal) as periode"))->where('kodeagen', $kodeAgen)->groupBy(DB::raw("to_char(tanggal, 'Month'),Extract('Year' from tanggal), Extract('Month' from tanggal)"))->orderByDesc(DB::raw("Extract('Year' from tanggal) desc, Extract('Month' from tanggal)"))->get();
-        return $dataPeriodeLogbook;
+        $dataPeriodeMap = self::on()->select(DB::raw("to_char(tanggal, 'Month') ||''|| Extract('Year' from tanggal) as periode"))->where('kodeagen', $kodeAgen)->groupBy(DB::raw("to_char(tanggal, 'Month'),Extract('Year' from tanggal), Extract('Month' from tanggal)"))->orderByDesc(DB::raw("Extract('Year' from tanggal) desc, Extract('Month' from tanggal)"))->get();
+        return $dataPeriodeMap;
     }
 
-    public static function getLogbookAgen($kriteria, $isiFilter, $kodeAgen)
+    public static function getMapAgen($kriteria, $isiFilter, $kodeAgen)
     {
         if ($kriteria == "bulan") {
             $isiFilter = explode(" ", $isiFilter);

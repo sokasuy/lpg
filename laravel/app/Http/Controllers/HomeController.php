@@ -44,10 +44,10 @@ class HomeController extends Controller
         return view('home', compact('dataCbo'));
     }
 
-    public function refreshPeriodeLogbookAgen(Request $request)
+    public function refreshPeriodeMapAgen(Request $request)
     {
         $kodeagen = $request->get('kodeagen');
-        $dataPeriode = Logbook::getPeriodeLogbook($kodeagen);
+        $dataPeriode = Logbook::getPeriodeMap($kodeagen);
         return response()->json(
             array(
                 'status' => 'ok',
@@ -57,7 +57,7 @@ class HomeController extends Controller
         );
     }
 
-    public function refreshPangkalanLogbook(Request $request)
+    public function refreshPangkalanMap(Request $request)
     {
         $kodeagen = $request->get('kodeagen');
         $dataPangkalan = Pangkalan::getPangkalan($kodeagen);
@@ -70,7 +70,7 @@ class HomeController extends Controller
         );
     }
 
-    public function refreshAgenLogbookChart(Request $request)
+    public function refreshAgenMapChart(Request $request)
     {
         //Refresh Agen Logbook Chart
         // DB::enableQueryLog();
@@ -97,7 +97,7 @@ class HomeController extends Controller
         // }
         // $persentase = collect((object)$persentase);
 
-        $data = Logbook::getLogbookAgen($kriteria, $isiFilter, $kodeAgen);
+        $data = Logbook::getMapAgen($kriteria, $isiFilter, $kodeAgen);
 
         $ajaxLabels['persentase'] = $data->keys();
         $ajaxData['persentase'] = $data->values();

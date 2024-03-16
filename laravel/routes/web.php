@@ -31,9 +31,9 @@ Route::middleware(['auth'])->group(
         Route::get('/', [HomeController::class, 'index'])->name('dashboard.home');
 
         //HOME ROUTES
-        Route::post('/home/refresh-periode-logbook-agen', [HomeController::class, 'refreshPeriodeLogbookAgen'])->name('home.refreshperiodelogbookagen');
-        Route::post('/home/refresh-pangkalan-logbook', [HomeController::class, 'refreshPangkalanLogbook'])->name('home.refreshpangkalanlogbook');
-        Route::post('/home/refresh-agen-logbook-chart', [HomeController::class, 'refreshAgenLogbookChart'])->name('home.refreshagenlogbookchart');
+        Route::post('/home/refresh-periode-map-agen', [HomeController::class, 'refreshPeriodeMapAgen'])->name('home.refreshperiodemapagen');
+        Route::post('/home/refresh-pangkalan-map', [HomeController::class, 'refreshPangkalanMap'])->name('home.refreshpangkalanmap');
+        Route::post('/home/refresh-agen-map-chart', [HomeController::class, 'refreshAgenMapChart'])->name('home.refreshagenmapchart');
 
         //PAGES REPORTS LOGBOOK
         Route::get('/reports/logbook', [LogbookController::class, 'reportLogbook'])->name('reports.logbook');

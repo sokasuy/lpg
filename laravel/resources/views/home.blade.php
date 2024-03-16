@@ -9,7 +9,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-                                            with font-awesome or any other icon font library -->
+                                                                                        with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="{{ route('dashboard.home') }}" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -663,15 +663,15 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-chart-line mr-1"></i>
-                        Grafik Logbook Agen
+                        Grafik MAP Agen
                     </h3>
                     <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#logbook-agen-chart-line" data-toggle="tab">Line</a>
+                                <a class="nav-link" href="#map-agen-chart-line" data-toggle="tab">Line</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#logbook-agen-chart-bar" data-toggle="tab">Bar</a>
+                                <a class="nav-link active" href="#map-agen-chart-bar" data-toggle="tab">Bar</a>
                             </li>
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -704,12 +704,12 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group cbo-filter-kategori-logbook-agen" id="cbo_agen_berdasarkan_bulan">
+                            <div class="form-group cbo-filter-kategori-map-agen" id="cbo_agen_berdasarkan_bulan">
                                 <select class="form-control select2bs4-periode" id="cbo_bulanperagen"
                                     style="width: 100%;">
                                 </select>
                             </div>
-                            <div class="form-group cbo-filter-kategori-logbook-agen" id="cbo_agen_berdasarkan_tanggal">
+                            <div class="form-group cbo-filter-kategori-map-agen" id="cbo_agen_berdasarkan_tanggal">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -721,22 +721,21 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button type="submit" class="btn btn-primary" id="btn_logbookagenchart">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="btn_mapagenchart">Submit</button>
                         </div>
                     </div>
                     <div class="tab-content p-0">
                         <!-- Morris chart - Purchase -->
-                        <div class="chart tab-pane" id="logbook-agen-chart-line"
-                            style="position: relative; height: auto;">
-                            <canvas id="canvas_agenlogbookchart_line" height="155" style="height: 100%;">Your browser
+                        <div class="chart tab-pane" id="map-agen-chart-line" style="position: relative; height: auto;">
+                            <canvas id="canvas_agenmapchart_line" height="155" style="height: 100%;">Your browser
                                 does
                                 not
                                 support the canvas element.
                             </canvas>
                         </div>
-                        <div class="chart tab-pane active" id="logbook-agen-chart-bar"
+                        <div class="chart tab-pane active" id="map-agen-chart-bar"
                             style="position: relative; height: auto;">
-                            <canvas id="canvas_agenlogbookchart_bar" height="155" style="height: 100%;">Your browser
+                            <canvas id="canvas_agenmapchart_bar" height="155" style="height: 100%;">Your browser
                                 does
                                 not
                                 support the canvas element.
@@ -765,15 +764,15 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-chart-line mr-1"></i>
-                        Grafik Logbook Pangkalan
+                        Grafik MAP Pangkalan
                     </h3>
                     <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="#logbook-pangkalan-chart-line" data-toggle="tab">Line</a>
+                                <a class="nav-link" href="#map-pangkalan-chart-line" data-toggle="tab">Line</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#logbook-pangkalan-chart-bar" data-toggle="tab">Bar</a>
+                                <a class="nav-link active" href="#map-pangkalan-chart-bar" data-toggle="tab">Bar</a>
                             </li>
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -805,20 +804,20 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button type="submit" class="btn btn-primary" id="btn_logbookpangkalanchart">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="btn_mappangkalanchart">Submit</button>
                         </div>
                     </div>
                     <div class="tab-content p-0">
                         <!-- Morris chart - Sales -->
-                        <div class="chart tab-pane" id="logbook-pangkalan-chart-line"
+                        <div class="chart tab-pane" id="map-pangkalan-chart-line"
                             style="position: relative; height: auto;">
-                            <canvas id="canvas_pangkalanlogbookchart_line" height="155" style="height: 100%;">Your
+                            <canvas id="canvas_pangkalanmapchart_line" height="155" style="height: 100%;">Your
                                 browser does not
                                 support the canvas element.</canvas>
                         </div>
-                        <div class="chart tab-pane active" id="logbook-pangkalan-chart-bar"
+                        <div class="chart tab-pane active" id="map-pangkalan-chart-bar"
                             style="position: relative; height: auto;">
-                            <canvas id="canvas_pangkalanlogbookchart_bar" height="155" style="height: 100%;">Your
+                            <canvas id="canvas_pangkalanmapchart_bar" height="155" style="height: 100%;">Your
                                 browser does not
                                 support the canvas element.</canvas>
                         </div>
@@ -887,26 +886,26 @@
 
         //==========================================================================================
         //FILTER
-        const btnLogbookAgenChart = document.querySelector('#btn_logbookagenchart');
-        btnLogbookAgenChart.addEventListener('click', refreshLogbookAgenChart);
+        const btnMapAgenChart = document.querySelector('#btn_mapagenchart');
+        btnMapAgenChart.addEventListener('click', refreshMapAgenChart);
         const cboKategoriFilterPerAgen = document.getElementById('cbo_kategorifilterperagen');
         $("#cbo_kategorifilterperagen").on("change", function() {
             let kategoriFilterPerAgen = cboKategoriFilterPerAgen.value;
-            $("div.cbo-filter-kategori-logbook-agen").hide();
+            $("div.cbo-filter-kategori-map-agen").hide();
             $("#cbo_" + kategoriFilterPerAgen).show();
         });
         //==========================================================================================
 
         $("#cboagen_grafikperagen").on("change", function() {
-            const cboAgenLogbookPerAgen = document.getElementById('cboagen_grafikperagen');
-            getPeriodePerAgen(cboAgenLogbookPerAgen.value);
+            const cboAgenMapPerAgen = document.getElementById('cboagen_grafikperagen');
+            getPeriodePerAgen(cboAgenMapPerAgen.value);
         });
 
         function getPeriodePerAgen(kodeagen) {
             // alert(kodeagen);
             $.ajax({
                 type: 'POST',
-                url: '{{ route('home.refreshperiodelogbookagen') }}',
+                url: '{{ route('home.refreshperiodemapagen') }}',
                 data: {
                     _token: "{{ csrf_token() }}",
                     kodeagen: kodeagen
@@ -923,15 +922,15 @@
         };
 
         $("#cboagen_grafikperpangkalan").on("change", function() {
-            const cboAgenLogbookPerPangkalan = document.getElementById('cboagen_grafikperpangkalan');
-            getPangkalan(cboAgenLogbookPerPangkalan.value);
+            const cboAgenMapPerPangkalan = document.getElementById('cboagen_grafikperpangkalan');
+            getPangkalan(cboAgenMapPerPangkalan.value);
         });
 
         function getPangkalan(kodeagen) {
             // alert(kodeagen);
             $.ajax({
                 type: 'POST',
-                url: '{{ route('home.refreshpangkalanlogbook') }}',
+                url: '{{ route('home.refreshpangkalanmap') }}',
                 data: {
                     _token: "{{ csrf_token() }}",
                     kodeagen: kodeagen
@@ -947,11 +946,11 @@
             });
         };
 
-        //Logbook Agen
-        let labelAgenLogbook = 0;
-        let dataAgenLogbook = 0;
-        const dataAgenLogbookChartBar = {
-            labels: labelAgenLogbook,
+        //Map Agen
+        let labelAgenMap = 0;
+        let dataAgenMap = 0;
+        const dataAgenMapChartBar = {
+            labels: labelAgenMap,
             datasets: [{
                 label: '%',
                 backgroundColor: [
@@ -973,24 +972,24 @@
                     'rgb(201, 203, 207)'
                 ],
                 borderWidth: 1,
-                data: dataAgenLogbook
+                data: dataAgenMap
             }]
         };
-        const configAgenLogbookBar = {
+        const configAgenMapBar = {
             type: 'bar',
-            data: dataAgenLogbookChartBar,
+            data: dataAgenMapChartBar,
             options: {}
         };
-        const myChartAgenLogbookBar = new Chart(
-            document.getElementById('canvas_agenlogbookchart_bar'),
-            configAgenLogbookBar
+        const myChartAgenMapBar = new Chart(
+            document.getElementById('canvas_agenmapchart_bar'),
+            configAgenMapBar
         );
 
-        //Logbook Pangkalan
-        let labelPangkalanLogbook = 0;
-        let dataPangkalanLogbook = 0;
-        const dataPangkalanLogbookChartBar = {
-            labels: labelPangkalanLogbook,
+        //Map Pangkalan
+        let labelPangkalanMap = 0;
+        let dataPangkalanMap = 0;
+        const dataPangkalanMapChartBar = {
+            labels: labelPangkalanMap,
             datasets: [{
                 label: '%',
                 backgroundColor: [
@@ -1012,7 +1011,7 @@
                     'rgb(201, 203, 207)'
                 ],
                 borderWidth: 1,
-                data: dataPangkalanLogbook,
+                data: dataPangkalanMap,
                 // pointBackgroundColor: 'rgb(255, 99, 132)',
                 // pointRadius: 5,
                 // pointHoverRadius: 5,
@@ -1021,17 +1020,17 @@
                 // tension: 0.5
             }]
         };
-        const configPangkalanLogbookBar = {
+        const configPangkalanMapBar = {
             type: 'bar',
-            data: dataPangkalanLogbookChartBar,
+            data: dataPangkalanMapChartBar,
             options: {}
         };
-        const myChartPangkalanLogbookBar = new Chart(
-            document.getElementById('canvas_pangkalanlogbookchart_bar'),
-            configPangkalanLogbookBar
+        const myChartPangkalanMapBar = new Chart(
+            document.getElementById('canvas_pangkalanmapchart_bar'),
+            configPangkalanMapBar
         );
 
-        function refreshLogbookAgenChart() {
+        function refreshMapAgenChart() {
             let kategoriFilterPerAgenValue = cboKategoriFilterPerAgen.value;
             let isiKategoriFilterPerAgenValue;
             let cboKategoriFilterPerAgenValue;
@@ -1051,7 +1050,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{ route('home.refreshagenlogbookchart') }}',
+                url: '{{ route('home.refreshagenmapchart') }}',
                 data: {
                     _token: "{{ csrf_token() }}",
                     kriteria: myArr[2],
@@ -1060,10 +1059,10 @@
                 },
                 success: function(response) {
                     if (response.status == 'ok') {
-                        myChartAgenLogbookBar.data.labels = response.labels.persentase;
-                        myChartAgenLogbookBar.data.datasets[0].data = response.data
+                        myChartAgenMapBar.data.labels = response.labels.persentase;
+                        myChartAgenMapBar.data.datasets[0].data = response.data
                             .persentase; // or you can iterate for multiple datasets
-                        myChartAgenLogbookBar.update(); // finally update our chart
+                        myChartAgenMapBar.update(); // finally update our chart
                         // {{-- ######### dari jhonatan ######## --}}
                         // myChartBestsellerDoughnut.data.labels = response.msg.labels;
                         // myChartBestsellerDoughnut.data.datasets[0].data = response.msg
