@@ -25,7 +25,7 @@ class Logbook extends Model
         return $dataPeriodeMap;
     }
 
-    public static function getMapAgen($kriteria, $isiFilter, $kodeAgen)
+    public static function getMapAgen($kriteria, $isiFilter, $kodeAgen, $persen)
     {
         if ($kriteria == "bulan") {
             $isiFilter = explode(" ", $isiFilter);
@@ -43,10 +43,13 @@ class Logbook extends Model
             $isiFilter[0] = $periodeAwal;
             $isiFilter[1] = $periodeAkhir;
         }
+        // $persen = explode(" ", $persen);
+
         $listPangkalan = self::getListPangkalanPerAgen($kriteria, $isiFilter, $kodeAgen);
         $trxMap = self::getSumTrxMapPerAgen($kriteria, $isiFilter, $kodeAgen);
         $penerimaan = self::getSumPenerimaanPerAgen($kriteria, $isiFilter, $kodeAgen);
         $persentase = self::getPersentasePerAgen($kriteria, $isiFilter, $kodeAgen);
+        // dd($persentase);
 
         foreach ($listPangkalan as $pangkalan) {
             // dd($trxMap[$pangkalan->idpangkalan]);
@@ -56,6 +59,18 @@ class Logbook extends Model
                 $persentase[$pangkalan->namapangkalan] = 0;
             } else {
                 $persentase[$pangkalan->namapangkalan] = ($trxMap[$pangkalan->idpangkalan] / $penerimaan[$pangkalan->idpangkalan]) * 100;
+            }
+
+            if ($persen == 'kurang dari') {
+                // berarti yang >= 100% yang dihilangkan, karena akan menampilkan yang kurang dari 100% saja
+                if ($persentase[$pangkalan->namapangkalan] >= 100) {
+                    unset($persentase[$pangkalan->namapangkalan]);
+                }
+            } elseif ($persen == 'lebih dari') {
+                // berarti yang < 105% yang dihilangkan, karena akan menampilkan yang lebih dari 105% saja
+                if ($persentase[$pangkalan->namapangkalan] < 105) {
+                    unset($persentase[$pangkalan->namapangkalan]);
+                }
             }
         }
 

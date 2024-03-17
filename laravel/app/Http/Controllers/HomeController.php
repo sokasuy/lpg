@@ -78,26 +78,9 @@ class HomeController extends Controller
         $kriteria = $request->get('kriteria');
         $isiFilter = $request->get('isiFilter');
         $kodeAgen = $request->get('kodeAgen');
+        $persen =  $request->get('persen');
 
-        // $listPangkalan = Logbook::getPangkalanByPeriode($kriteria, $isiFilter, $kodeAgen);
-        // $trxMap = Logbook::getSumTrxMapByPeriodeChart($kriteria, $isiFilter, $kodeAgen);
-        // $penerimaan = Logbook::getSumPenerimaanByPeriodeChart($kriteria, $isiFilter, $kodeAgen);
-        // $persentase = Logbook::getPersentaseByPeriodeChart($kriteria, $isiFilter, $kodeAgen);
-
-        // dd(DB::getQueryLog());
-
-        // foreach ($listPangkalan as $pangkalan) {
-        //     $trxMap[$pangkalan->idpangkalan] = $trxMap[$pangkalan->idpangkalan] ?? 0;
-        //     $penerimaan[$pangkalan->idpangkalan] = $penerimaan[$pangkalan->idpangkalan] ?? 1;
-        //     if ($penerimaan[$pangkalan->idpangkalan] === 1) {
-        //         $persentase[$pangkalan->namapangkalan] = 100;
-        //     } else {
-        //         $persentase[$pangkalan->namapangkalan] = ($trxMap[$pangkalan->idpangkalan] / $penerimaan[$pangkalan->idpangkalan]) * 100;
-        //     }
-        // }
-        // $persentase = collect((object)$persentase);
-
-        $data = Logbook::getMapAgen($kriteria, $isiFilter, $kodeAgen);
+        $data = Logbook::getMapAgen($kriteria, $isiFilter, $kodeAgen, $persen);
 
         $ajaxLabels['persentase'] = $data->keys();
         $ajaxData['persentase'] = $data->values();

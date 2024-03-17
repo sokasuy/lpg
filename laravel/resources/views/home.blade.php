@@ -9,7 +9,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                with font-awesome or any other icon font library -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="{{ route('dashboard.home') }}" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -919,6 +919,9 @@
             $("div.cbo-filter-kategori-map-agen").hide();
             $("#cbo_" + kategoriFilterPerAgen).show();
         });
+
+        const btnMapPangkalanChart = document.querySelector('#btn_mappangkalanchart');
+        btnMapPangkalanChart.addEventListener('click', refreshMapPangkalanChart);
         //==========================================================================================
 
         $("#cboagen_grafikperagen").on("change", function() {
@@ -1053,6 +1056,8 @@
             let cboKategoriFilterPerAgenValue;
             let myArr = kategoriFilterPerAgenValue.split("_");
             let kodeAgen;
+            var rbOptionPersenChecked = $("input[name='rbOptionPersen']:checked").val();
+            // alert(rbOptionPersenChecked);
 
             kodeAgen = document.getElementById('cboagen_grafikperagen');
             if (myArr[2] === "bulan") {
@@ -1069,7 +1074,8 @@
                     _token: "{{ csrf_token() }}",
                     kriteria: myArr[2],
                     isiFilter: isiKategoriFilterPerAgenValue,
-                    kodeAgen: kodeAgen.value
+                    kodeAgen: kodeAgen.value,
+                    persen: rbOptionPersenChecked
                 },
                 success: function(response) {
                     if (response.status == 'ok') {
@@ -1089,6 +1095,10 @@
                     console.log(response);
                 }
             });
+        };
+
+        function refreshMapPangkalanChart() {
+            alert('refresh pangkalan chart');
         };
     </script>
 @endsection
