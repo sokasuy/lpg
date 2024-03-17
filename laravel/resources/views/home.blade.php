@@ -9,7 +9,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            with font-awesome or any other icon font library -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="{{ route('dashboard.home') }}" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -658,7 +658,7 @@
         <section class="col-lg-6 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
             <!-- /.card -->
-            {{-- PURCHASE --}}
+            {{-- MAP Agen --}}
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
@@ -767,7 +767,7 @@
                     </div>
                 </div><!-- /.card-body -->
             </div>
-            {{-- PURCHASE --}}
+            {{-- MAP Agen --}}
             <!-- /.card -->
 
             <!-- /.card -->
@@ -782,7 +782,7 @@
         <section class="col-lg-6 connectedSortable">
             <!-- Map card -->
             <!-- /.card -->
-            {{-- SALES --}}
+            {{-- MAP Pangkalan --}}
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
@@ -849,7 +849,7 @@
                     </div>
                 </div><!-- /.card-body -->
             </div>
-            {{-- SALES --}}
+            {{-- MAP Pangkalan --}}
             <!-- /.card -->
 
             <!-- /.card -->
