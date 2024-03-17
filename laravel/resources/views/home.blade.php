@@ -9,7 +9,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                with font-awesome or any other icon font library -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="{{ route('dashboard.home') }}" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -757,7 +757,7 @@
                         <div class="chart tab-pane active" id="map-agen-chart-bar"
                             style="position: relative; height: auto;">
                             <canvas id="canvas_agenmapchart_bar"
-                                style="min-height:250px; height: 250px; max-height: 100%; max-width: 100%;">Your
+                                style="min-height: 250px; height: 250px; max-height: 100%; max-width: 100%;">Your
                                 browser
                                 does
                                 not
