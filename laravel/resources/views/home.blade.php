@@ -9,7 +9,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-                                                                                        with font-awesome or any other icon font library -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="{{ route('dashboard.home') }}" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -724,10 +724,31 @@
                             <button type="submit" class="btn btn-primary" id="btn_mapagenchart">Submit</button>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <!-- radio -->
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="rbOptionPersen" id="rb_semua"
+                                    value="semua" checked>
+                                <label class="form-check-label" for="rbSemua">Semua</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="rbOptionPersen" id="rb_kurangdari"
+                                    value="kurang dari">
+                                <label class="form-check-label" for="rbKurangDari">&lt100%</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="rbOptionPersen" id="rb_lebihdari"
+                                    value="lebih dari">
+                                <label class="form-check-label" for="rbLebihDari">&gt105%</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content p-0">
                         <!-- Morris chart - Purchase -->
                         <div class="chart tab-pane" id="map-agen-chart-line" style="position: relative; height: auto;">
-                            <canvas id="canvas_agenmapchart_line" height="155" style="height: 100%;">Your browser
+                            <canvas id="canvas_agenmapchart_line"
+                                style="min-height: 250px; height: 250px; max-height: 100%; max-width: 100%;">Your browser
                                 does
                                 not
                                 support the canvas element.
@@ -735,7 +756,9 @@
                         </div>
                         <div class="chart tab-pane active" id="map-agen-chart-bar"
                             style="position: relative; height: auto;">
-                            <canvas id="canvas_agenmapchart_bar" height="155" style="height: 100%;">Your browser
+                            <canvas id="canvas_agenmapchart_bar"
+                                style="min-height:250px; height: 250px; max-height: 100%; max-width: 100%;">Your
+                                browser
                                 does
                                 not
                                 support the canvas element.
@@ -811,13 +834,15 @@
                         <!-- Morris chart - Sales -->
                         <div class="chart tab-pane" id="map-pangkalan-chart-line"
                             style="position: relative; height: auto;">
-                            <canvas id="canvas_pangkalanmapchart_line" height="155" style="height: 100%;">Your
+                            <canvas id="canvas_pangkalanmapchart_line"
+                                style="min-height: 250px; height: 250px; max-height: 100%; max-width: 100%;">Your
                                 browser does not
                                 support the canvas element.</canvas>
                         </div>
                         <div class="chart tab-pane active" id="map-pangkalan-chart-bar"
                             style="position: relative; height: auto;">
-                            <canvas id="canvas_pangkalanmapchart_bar" height="155" style="height: 100%;">Your
+                            <canvas id="canvas_pangkalanmapchart_bar"
+                                style="min-height: 250px; height: 250px; max-height: 100%; max-width: 100%;">Your
                                 browser does not
                                 support the canvas element.</canvas>
                         </div>
@@ -902,7 +927,6 @@
         });
 
         function getPeriodePerAgen(kodeagen) {
-            // alert(kodeagen);
             $.ajax({
                 type: 'POST',
                 url: '{{ route('home.refreshperiodemapagen') }}',
@@ -927,7 +951,6 @@
         });
 
         function getPangkalan(kodeagen) {
-            // alert(kodeagen);
             $.ajax({
                 type: 'POST',
                 url: '{{ route('home.refreshpangkalanmap') }}',
@@ -1011,13 +1034,7 @@
                     'rgb(201, 203, 207)'
                 ],
                 borderWidth: 1,
-                data: dataPangkalanMap,
-                // pointBackgroundColor: 'rgb(255, 99, 132)',
-                // pointRadius: 5,
-                // pointHoverRadius: 5,
-                // pointHoverBackgroundColor: 'rgb(255,255,255)',
-                // fill: false,
-                // tension: 0.5
+                data: dataPangkalanMap
             }]
         };
         const configPangkalanMapBar = {
@@ -1044,9 +1061,6 @@
                 cboKategoriFilterPerAgenValue = document.getElementById('dtp_peragen');
             }
             isiKategoriFilterPerAgenValue = cboKategoriFilterPerAgenValue.value;
-
-            // alert(myArr[2]);
-            // alert(isiKategoriFilterPerAgenValue);
 
             $.ajax({
                 type: 'POST',

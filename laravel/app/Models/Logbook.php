@@ -51,9 +51,9 @@ class Logbook extends Model
         foreach ($listPangkalan as $pangkalan) {
             // dd($trxMap[$pangkalan->idpangkalan]);
             $trxMap[$pangkalan->idpangkalan] = $trxMap[$pangkalan->idpangkalan] ?? 0;
-            $penerimaan[$pangkalan->idpangkalan] = $penerimaan[$pangkalan->idpangkalan] ?? 1;
-            if ($penerimaan[$pangkalan->idpangkalan] === 1) {
-                $persentase[$pangkalan->namapangkalan] = 100;
+            $penerimaan[$pangkalan->idpangkalan] = $penerimaan[$pangkalan->idpangkalan] ?? 0;
+            if ($penerimaan[$pangkalan->idpangkalan] === 0) {
+                $persentase[$pangkalan->namapangkalan] = 0;
             } else {
                 $persentase[$pangkalan->namapangkalan] = ($trxMap[$pangkalan->idpangkalan] / $penerimaan[$pangkalan->idpangkalan]) * 100;
             }
