@@ -9,7 +9,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    with font-awesome or any other icon font library -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="{{ route('dashboard.home') }}" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -716,7 +716,7 @@
                                             <i class="far fa-calendar-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control float-right" id="dtp_peragen">
+                                    <input type="text" class="form-control float-right dtp-filter" id="dtp_peragen">
                                 </div>
                             </div>
                         </div>
@@ -724,7 +724,7 @@
                             <button type="submit" class="btn btn-primary" id="btn_mapagenchart">Submit</button>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="position: relative; height: 35px;">
                         <div class="col-md-7">
                             <!-- radio -->
                             <div class="form-check form-check-inline">
@@ -826,6 +826,31 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row" style="height: 35px;">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select class="form-control select2bs4" id="cbo_kategoridisplayperiode"
+                                    style="width: 100%;">
+                                    <option value="harian">Harian</option>
+                                    <option value="mingguan">Mingguan</option>
+                                    <option value="bulanan">Bulanan</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right dtp-filter"
+                                        id="dtp_perpangkalan">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <button type="submit" class="btn btn-primary" id="btn_mappangkalanchart">Submit</button>
                         </div>
@@ -896,7 +921,8 @@
             });
 
             //Date range picker
-            $('#dtp_peragen').daterangepicker();
+            $('.dtp-filter').daterangepicker();
+            // $('#dtp_perpangkalan').daterangepicker();
 
             //$("div#cbo_agen_berdasarkan_bulan").hide();
             $("div#cbo_agen_berdasarkan_tanggal").hide();
@@ -919,9 +945,9 @@
             $("div.cbo-filter-kategori-map-agen").hide();
             $("#cbo_" + kategoriFilterPerAgen).show();
         });
-
         const btnMapPangkalanChart = document.querySelector('#btn_mappangkalanchart');
         btnMapPangkalanChart.addEventListener('click', refreshMapPangkalanChart);
+        const cboKategoriDisplayPeriode = document.getElementById('cbo_kategoridisplayperiode');
         //==========================================================================================
 
         $("#cboagen_grafikperagen").on("change", function() {
@@ -1098,7 +1124,40 @@
         };
 
         function refreshMapPangkalanChart() {
-            alert('refresh pangkalan chart');
+            // alert('refresh pangkalan chart');
+            let kodeAgen = document.getElementById('cboagen_grafikperpangkalan').value;
+            let idPangkalan = document.getElementById('cbopangkalan_grafikperpangkalan').value;
+            // let cboKategoriFilterPerPangkalanValue = document.getElementById('dtp_perpangkalan');
+            let isiKategoriFilterPerPangkalanValue = document.getElementById('dtp_perpangkalan').value;
+            let kategoriDisplayPeriodeValue = cboKategoriDisplayPeriode.value;
+
+            // cboKategoriFilterPerPangkalanValue = document.getElementById('dtp_perpangkalan');
+            // isiKategoriFilterPerPangkalanValue = cboKategoriFilterPerPangkalanValue.value;
+            // kodeAgen = document.getElementById('cboagen_grafikperpangkalan').value;
+            // idPangkalan = document.getElementById('cbopangkalan_grafikperpangkalan').value;
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('home.refreshpangkalanmapchart') }}',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    kriteria: kategoriDisplayPeriodeValue,
+                    isiFilter: isiKategoriFilterPerPangkalanValue,
+                    kodeAgen: kodeAgen,
+                    idPangkalan: idPangkalan
+                },
+                success: function(response) {
+                    if (response.status == 'ok') {
+                        myChartPangkalanMapBar.data.labels = response.labels.persentase;
+                        myChartPangkalanMapBar.data.datasets[0].data = response.data
+                            .persentase; // or you can iterate for multiple datasets
+                        myChartPangkalanMapBar.update(); // finally update our chart
+                    }
+                },
+                error: function(response, textStatus, errorThrown) {
+                    console.log(response);
+                }
+            });
         };
     </script>
 @endsection

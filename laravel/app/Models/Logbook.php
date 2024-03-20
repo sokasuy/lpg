@@ -79,6 +79,13 @@ class Logbook extends Model
         return $persentase;
     }
 
+    public static function getMapPangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan)
+    {
+        $persentase = collect((object)$persentase);
+
+        return $persentase;
+    }
+
     public static function getListPangkalanPerAgen($kriteria, $isiFilter, $kodeAgen)
     {
         if ($kriteria == "bulan") {

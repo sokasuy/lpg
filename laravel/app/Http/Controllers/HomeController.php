@@ -95,4 +95,32 @@ class HomeController extends Controller
         );
         //=============================================================================================================
     }
+
+    public function refreshPangkalanMapChart(Request $request)
+    {
+        //Refresh Agen Logbook Chart
+        // DB::enableQueryLog();
+
+        // dd($request);
+
+        $kriteria = $request->get('kriteria');
+        $isiFilter = $request->get('isiFilter');
+        $kodeAgen = $request->get('kodeAgen');
+        $idPangkalan =  $request->get('idPangkalan');
+
+        $data = Logbook::getMapPangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan);
+
+        $ajaxLabels['persentase'] = $data->keys();
+        $ajaxData['persentase'] = $data->values();
+
+        return response()->json(
+            array(
+                'status' => 'ok',
+                'labels' => $ajaxLabels,
+                'data' => $ajaxData
+            ),
+            200
+        );
+        //=============================================================================================================
+    }
 }
