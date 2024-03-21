@@ -38,18 +38,14 @@ class Logbook extends Model
             $isiFilter = explode(" - ", $isiFilter);
             $isiFilter[0] = explode("/", $isiFilter[0]);
             $isiFilter[1] = explode("/", $isiFilter[1]);
-            $periodeAwal = $isiFilter[0][2] . "-" . $isiFilter[0][0] . "-" . $isiFilter[0][1];
-            $periodeAkhir = $isiFilter[1][2] . "-" . $isiFilter[1][0] . "-" . $isiFilter[1][1];
-            $isiFilter[0] = $periodeAwal;
-            $isiFilter[1] = $periodeAkhir;
+            $isiFilter[0] = $isiFilter[0][2] . "-" . $isiFilter[0][0] . "-" . $isiFilter[0][1];
+            $isiFilter[1] = $isiFilter[1][2] . "-" . $isiFilter[1][0] . "-" . $isiFilter[1][1];
         }
-        // $persen = explode(" ", $persen);
 
         $listPangkalan = self::getListPangkalanPerAgen($kriteria, $isiFilter, $kodeAgen);
         $trxMap = self::getSumTrxMapPerAgen($kriteria, $isiFilter, $kodeAgen);
         $penerimaan = self::getSumPenerimaanPerAgen($kriteria, $isiFilter, $kodeAgen);
         $persentase = self::getPersentasePerAgen($kriteria, $isiFilter, $kodeAgen);
-        // dd($persentase);
 
         foreach ($listPangkalan as $pangkalan) {
             // dd($trxMap[$pangkalan->idpangkalan]);
@@ -81,7 +77,36 @@ class Logbook extends Model
 
     public static function getMapPangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan)
     {
+        $isiFilter = explode(" - ", $isiFilter);
+        $isiFilter[0] = explode("/", $isiFilter[0]);
+        $isiFilter[1] = explode("/", $isiFilter[1]);
+        $isiFilter[0] = $isiFilter[0][2] . "-" . $isiFilter[0][0] . "-" . $isiFilter[0][1];
+        $isiFilter[1] = $isiFilter[1][2] . "-" . $isiFilter[1][0] . "-" . $isiFilter[1][1];
+
+        if ($kriteria == "harian") {
+        } elseif ($kriteria == "mingguan") {
+        } elseif ($kriteria == "bulanan") {
+        }
+
+        $listPangkalan = self::getListPeriodePangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan);
+        $trxMap = self::getSumTrxMapPangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan);
+        $penerimaan = self::getSumPenerimaanPangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan);
+        $persentase = self::getPersentasePangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan);
+        // dd($trxMap);
+
+        foreach ($listPangkalan as $pangkalan) {
+            // dd($trxMap[$pangkalan->idpangkalan]);
+            $trxMap[$pangkalan->tanggal] = $trxMap[$pangkalan->tanggal] ?? 0;
+            $penerimaan[$pangkalan->tanggal] = $penerimaan[$pangkalan->tanggal] ?? 0;
+            if ($penerimaan[$pangkalan->tanggal] === 0) {
+                $persentase[$pangkalan->tanggal] = 0;
+            } else {
+                $persentase[$pangkalan->tanggal] = ($trxMap[$pangkalan->tanggal] / $penerimaan[$pangkalan->tanggal]) * 100;
+            }
+        }
+
         $persentase = collect((object)$persentase);
+        // dd($persentase);
 
         return $persentase;
     }
@@ -114,6 +139,26 @@ class Logbook extends Model
         return $data;
     }
 
+    public static function getListPeriodePangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan)
+    {
+        if ($kriteria == "harian") {
+            $data = DB::table('trlogbookmap as tlm')->join('mspangkalan', function ($join) {
+                $join->on('tlm.kodeagen', '=', 'mspangkalan.kodeagen');
+                $join->on('tlm.idpangkalan', '=', 'mspangkalan.idpangkalan');
+            })->select('mspangkalan.namapangkalan', 'tlm.tanggal')
+                ->where('tlm.kodeagen', $kodeAgen)
+                ->where('tlm.tanggal', '>=', $isiFilter[0])
+                ->where('tlm.tanggal', '<=', $isiFilter[1])
+                ->where('tlm.idpangkalan', $idPangkalan)
+                ->groupBy(['mspangkalan.namapangkalan'], ['tlm.tanggal'])
+                ->orderBy('tlm.tanggal')
+                ->get();
+        } elseif ($kriteria == "mingguan") {
+        } elseif ($kriteria == "bulanan") {
+        }
+        return $data;
+    }
+
     public static function getPersentasePerAgen($kriteria, $isiFilter, $kodeAgen)
     {
         if ($kriteria == "bulan") {
@@ -138,6 +183,26 @@ class Logbook extends Model
                 ->groupBy(['tlm.idpangkalan'], ['mspangkalan.namapangkalan'], ['tlm.persentase'])
                 ->orderBy('mspangkalan.namapangkalan')
                 ->pluck('tlm.persentase', 'mspangkalan.namapangkalan');
+        }
+        return $data;
+    }
+
+    public static function getPersentasePangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan)
+    {
+        if ($kriteria == "harian") {
+            $data = DB::table('trlogbookmap as tlm')->join('mspangkalan', function ($join) {
+                $join->on('tlm.kodeagen', '=', 'mspangkalan.kodeagen');
+                $join->on('tlm.idpangkalan', '=', 'mspangkalan.idpangkalan');
+            })->select('tlm.tanggal', 'tlm.persentase')
+                ->where('tlm.kodeagen', $kodeAgen)
+                ->where('tlm.idpangkalan', $idPangkalan)
+                ->where('tlm.tanggal', '>=', $isiFilter[0])
+                ->where('tlm.tanggal', '<=', $isiFilter[1])
+                ->groupBy(['tlm.tanggal'], ['tlm.persentase'])
+                ->orderBy('tlm.tanggal')
+                ->pluck('tlm.persentase', 'tlm.tanggal');
+        } elseif ($kriteria == "mingguan") {
+        } elseif ($kriteria == "bulanan") {
         }
         return $data;
     }
@@ -172,6 +237,27 @@ class Logbook extends Model
         return $data;
     }
 
+    public static function getSumTrxMapPangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan)
+    {
+        if ($kriteria == "harian") {
+            $data = DB::table('trlogbookmap as tlm')->join('mspangkalan', function ($join) {
+                $join->on('tlm.kodeagen', '=', 'mspangkalan.kodeagen');
+                $join->on('tlm.idpangkalan', '=', 'mspangkalan.idpangkalan');
+            })->select('mspangkalan.namapangkalan', 'tlm.tanggal')
+                ->addSelect(['trxmap' => Logbook::select(DB::raw("sum(case when trxmap is not null then trxmap else 0 end)"))->whereColumn('kodeagen', 'tlm.kodeagen')->whereColumn('idpangkalan', 'tlm.idpangkalan')->whereColumn('tanggal', '<=', 'tlm.tanggal')])
+                ->where('tlm.kodeagen', $kodeAgen)
+                ->where('tlm.idpangkalan', $idPangkalan)
+                ->where('tlm.tanggal', '>=', $isiFilter[0])
+                ->where('tlm.tanggal', '<=', $isiFilter[1])
+                ->groupBy(['tlm.kodeagen'], ['tlm.idpangkalan'], ['tlm.tanggal'], ['mspangkalan.namapangkalan'])
+                ->orderBy('tlm.tanggal')
+                ->pluck('trxmap', 'tlm.tanggal');
+        } elseif ($kriteria == "mingguan") {
+        } elseif ($kriteria == "bulanan") {
+        }
+        return $data;
+    }
+
     public static function getSumPenerimaanPerAgen($kriteria, $isiFilter, $kodeAgen)
     {
         if ($kriteria == "bulan") {
@@ -198,6 +284,27 @@ class Logbook extends Model
                 ->groupBy(['tlm.kodeagen'], ['tlm.idpangkalan'], ['mspangkalan.namapangkalan'])
                 ->orderBy('mspangkalan.namapangkalan')
                 ->pluck('penerimaan', 'tlm.idpangkalan');
+        }
+        return $data;
+    }
+
+    public static function getSumPenerimaanPangkalan($kriteria, $isiFilter, $kodeAgen, $idPangkalan)
+    {
+        if ($kriteria == "harian") {
+            $data = DB::table('trlogbookmap as tlm')->join('mspangkalan', function ($join) {
+                $join->on('tlm.kodeagen', '=', 'mspangkalan.kodeagen');
+                $join->on('tlm.idpangkalan', '=', 'mspangkalan.idpangkalan');
+            })->select('mspangkalan.namapangkalan', 'tlm.tanggal')
+                ->addSelect(['penerimaan' => Logbook::select(DB::raw("sum(case when penerimaan is not null then penerimaan else null end)"))->whereColumn('kodeagen', 'tlm.kodeagen')->whereColumn('idpangkalan', 'tlm.idpangkalan')->whereColumn('tanggal', '<=', 'tlm.tanggal')])
+                ->where('tlm.kodeagen', $kodeAgen)
+                ->where('tlm.idpangkalan', $idPangkalan)
+                ->where('tlm.tanggal', '>=', $isiFilter[0])
+                ->where('tlm.tanggal', '<=', $isiFilter[1])
+                ->groupBy(['tlm.kodeagen'], ['tlm.idpangkalan'], ['tlm.tanggal'], ['mspangkalan.namapangkalan'])
+                ->orderBy('tlm.tanggal')
+                ->pluck('penerimaan', 'tlm.tanggal');
+        } elseif ($kriteria == "mingguan") {
+        } elseif ($kriteria == "bulanan") {
         }
         return $data;
     }
