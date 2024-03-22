@@ -1,18 +1,18 @@
 @extends('layouts.reports')
 @section('title')
-    <title>LPG | Data Logbook</title>
+    <title>LPG | Data Performance Agen</title>
 @endsection
 
 @section('headertitle')
-    <h1>REPORTS LOGBOOK</h1>
+    <h1>REPORTS PERFORMANCE AGEN</h1>
 @endsection
 
 @section('navlist')
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="{{ route('reports.logbook') }}" class="nav-link active">
+            <a href="{{ route('reports.performanceagen') }}" class="nav-link active">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Data Logbook</p>
+                <p>Data Performa Agen</p>
             </a>
         </li>
     </ul>
@@ -21,7 +21,7 @@
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard.home') }}">Home</a></li>
     <li class="breadcrumb-item">Reports</li>
-    <li class="breadcrumb-item active">Data Logbook</li>
+    <li class="breadcrumb-item active">Data Performance Agen</li>
 @endsection
 
 @section('content')
@@ -31,49 +31,49 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Logbook</h3>
+                    <h3 class="card-title">Performance Agen</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <select class="form-control select2bs4" id="cbo_periodelogbook" style="width: 100%;">
+                                <select class="form-control select2bs4" id="cbo_periodemap" style="width: 100%;">
                                     <option value="hari_ini">Hari Ini</option>
                                     <option value="3_hari">3 Hari - Hari ini</option>
                                     <option value="7_hari">7 Hari - Hari ini</option>
                                     <option value="14_hari">14 Hari - Hari ini</option>
                                     <option value="bulan_berjalan">Bulan ini</option>
                                     <option value="semua">Semua</option>
-                                    <option value="berdasarkan_tanggal_logbook">Berdasarkan Tanggal Logbook</option>
+                                    <option value="berdasarkan_tanggal_map">Berdasarkan Tanggal Map</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="form-group cbo-filter-periode-logbook" id="cbo_berdasarkan_tanggal_logbook">
+                            <div class="form-group cbo-filter-periode-map" id="cbo_berdasarkan_tanggal_map">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="far fa-calendar-alt"></i>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control float-right" id="dtp_logbook">
+                                    <input type="text" class="form-control float-right" id="dtp_map">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <button type="submit" class="btn btn-primary" id="btn_periodelogbook">Submit</button>
+                            <button type="submit" class="btn btn-primary" id="btn_periodemap">Submit</button>
                         </div>
                     </div>
-                    <table id="tbl_logbook" class="table table-bordered table-striped">
+                    <table id="tbl_map" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>AGEN</th>
-                                <th>ID PANGKALAN</th>
-                                <th>PANGKALAN</th>
-                                <th>PENERIMAAN</th>
-                                <th>PERSENTASE</th>
-                                <th>GAP</th>
+                                <th>No</th>
+                                <th>Nama Kota / Kabupaten</th>
+                                <th>Nama Agen</th>
+                                <th>SP</th>
+                                <th>%MAP vs Penyaluran Simelon</th>
+                                <th>Persentase Pencatatan Pangkalan 100%</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -105,12 +105,12 @@
             });
 
             //Date range picker
-            $('#dtp_logbook').daterangepicker();
+            $('#dtp_map').daterangepicker();
 
             //Buat hidden date picker kalau bukan berdasarkan_tanggal_expired
-            $("div#cbo_berdasarkan_tanggal_logbook").hide();
+            $("div#cbo_berdasarkan_tanggal_map").hide();
 
-            $("#tbl_logbook").DataTable({
+            $("#tbl_map").DataTable({
                 "dom": 'Bfrtip',
                 "paging": true,
                 "pageLength": 10,
@@ -120,11 +120,11 @@
                 "deferRender": true,
                 "processing": true,
                 "ajax": {
-                    "url": '{{ route('reports.getlogbook') }}',
+                    "url": '{{ route('reports.getperformanceagen') }}',
                     "type": "POST",
                     "data": {
                         _token: "{{ csrf_token() }}",
-                        kriteria: document.querySelector('#cbo_periodelogbook').value,
+                        kriteria: document.querySelector('#cbo_periodemap').value,
                         isiFilter: ""
                     },
                     "xhrFields": {
@@ -132,19 +132,18 @@
                     }
                 },
                 "columns": [{
-                    "data": "kodeagen"
+                    "data": "no"
                 }, {
-                    "data": "idpangkalan"
+                    "data": "kota"
                 }, {
-                    "data": "pangkalan"
+                    "data": "namaagen"
                 }, {
-                    "data": "penerimaan",
-                    render: $.fn.DataTable.render.number(',', '.', 0, '')
+                    "data": "sp"
                 }, {
-                    "data": "persentase",
+                    "data": "persentasemapvspenyaluran",
                     render: $.fn.DataTable.render.number(',', '.', 2, '')
                 }, {
-                    "data": "gap",
+                    "data": "persentasepangkalan100persen",
                     render: $.fn.DataTable.render.number(',', '.', 2, '')
                 }],
                 /* columnDefs: [{
@@ -187,30 +186,30 @@
                         grandTotalJumlah) + ')');
                 },*/
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#tbl_logbook_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#tbl_map_wrapper .col-md-6:eq(0)');
         });
 
         //FILTER
-        const btnPeriodeLogbook = document.querySelector('#btn_periodelogbook');
-        btnPeriodeLogbook.addEventListener('click', refreshLogbook);
-        const cboPeriodeLogbook = document.querySelector('#cbo_periodelogbook');
-        cboPeriodeLogbook.onchange = function() {
-            let periodeLogbook = cboPeriodeLogbook.value;
+        const btnPeriodeMap = document.querySelector('#btn_periodemap');
+        btnPeriodeMap.addEventListener('click', refreshMap);
+        const cboPeriodeMap = document.querySelector('#cbo_periodelogbook');
+        cboPeriodeMap.onchange = function() {
+            let periodeMap = cboPeriodeMap.value;
             $("div.cbo-filter-periode-logbook").hide();
-            $("#cbo_" + periodeLogbook).show();
+            $("#cbo_" + periodeMap).show();
         };
 
-        function refreshLogbook() {
-            let filterPeriodeLogbook = cboPeriodeLogbook.value;
-            let isiFilterPeriodeLogbook;
-            if (filterPeriodeLogbook == "berdasarkan_tanggal_penjualan") {
-                isiFilterPeriodeLogbook = document.querySelector('#dtp_logbook').value;
+        function refreshMap() {
+            let filterPeriodeMap = cboPeriodeMap.value;
+            let isiFilterPeriodeMap;
+            if (filterPeriodeMap == "berdasarkan_tanggal_map") {
+                isiFilterPeriodeMap = document.querySelector('#dtp_map').value;
             }
-            $("#tbl_logbook").DataTable().context[0].ajax.data._token = "{{ csrf_token() }}";
-            $("#tbl_logbook").DataTable().context[0].ajax.data.kriteria = filterPeriodeLogbook;
-            $("#tbl_logbook").DataTable().context[0].ajax.data.isiFilter = isiFilterPeriodeLogbook;
-            $("#tbl_logbook").DataTable().clear().draw();
-            $("#tbl_logbook").DataTable().ajax.url('{{ route('reports.getlogbook') }}').load();
+            $("#tbl_map").DataTable().context[0].ajax.data._token = "{{ csrf_token() }}";
+            $("#tbl_map").DataTable().context[0].ajax.data.kriteria = filterPeriodeMap;
+            $("#tbl_map").DataTable().context[0].ajax.data.isiFilter = isiFilterPeriodeMap;
+            $("#tbl_map").DataTable().clear().draw();
+            $("#tbl_map").DataTable().ajax.url('{{ route('reports.getperformanceagen') }}').load();
         };
     </script>
 @endsection

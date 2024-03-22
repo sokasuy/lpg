@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(
         Route::post('/home/refresh-pangkalan-map-chart', [HomeController::class, 'refreshPangkalanMapChart'])->name('home.refreshpangkalanmapchart');
 
         //PAGES REPORTS LOGBOOK
-        Route::get('/reports/logbook', [LogbookController::class, 'reportLogbook'])->name('reports.logbook');
-        Route::post('/reports/get-logbook', [LogbookController::class, 'getReportLogbook'])->name('reports.getlogbook');
+        Route::get('/reports/performance-agen', [LogbookController::class, 'reportPerformanceagen'])->name('reports.performanceagen');
+        Route::post('/reports/get-performance-agen', [LogbookController::class, 'getPerformanceAgen'])->name('reports.getperformanceagen');
     }
 );
