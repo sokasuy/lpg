@@ -45,11 +45,12 @@
                                     <option value="14_hari">14 Hari - Hari ini</option>
                                     <option value="bulan_berjalan">Bulan ini</option>
                                     <option value="semua">Semua</option>
+                                    <option value="berdasarkan_bulan_map">Berdasarkan Bulan Map</option>
                                     <option value="berdasarkan_tanggal_map">Berdasarkan Tanggal Map</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group cbo-filter-periode-map" id="cbo_berdasarkan_tanggal_map">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -119,6 +120,7 @@
                 "autoWidth": false,
                 "deferRender": true,
                 "processing": true,
+                "server-side": true,
                 "ajax": {
                     "url": '{{ route('reports.getperformanceagen') }}',
                     "type": "POST",
@@ -138,7 +140,7 @@
                 }, {
                     "data": "namaagen"
                 }, {
-                    "data": "sp"
+                    "data": "idagen"
                 }, {
                     "data": "persentasemapvspenyaluran",
                     render: $.fn.DataTable.render.number(',', '.', 2, '')
@@ -146,6 +148,10 @@
                     "data": "persentasepangkalan100persen",
                     render: $.fn.DataTable.render.number(',', '.', 2, '')
                 }],
+                "order": [
+                    [4, 'desc'],
+                    [5, 'desc']
+                ],
                 /* columnDefs: [{
                     targets: [7, 8],
                     render: $.fn.dataTable.render.number(',', '.', 2, '')
@@ -192,10 +198,10 @@
         //FILTER
         const btnPeriodeMap = document.querySelector('#btn_periodemap');
         btnPeriodeMap.addEventListener('click', refreshMap);
-        const cboPeriodeMap = document.querySelector('#cbo_periodelogbook');
+        const cboPeriodeMap = document.querySelector('#cbo_periodemap');
         cboPeriodeMap.onchange = function() {
             let periodeMap = cboPeriodeMap.value;
-            $("div.cbo-filter-periode-logbook").hide();
+            $("div.cbo-filter-periode-map").hide();
             $("#cbo_" + periodeMap).show();
         };
 

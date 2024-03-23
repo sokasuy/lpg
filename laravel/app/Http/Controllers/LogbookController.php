@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Logbook;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DB;
 
 class LogbookController extends Controller
 {
@@ -87,11 +88,14 @@ class LogbookController extends Controller
             $isiFilter  = Carbon::now()->subDays(14)->toDateString();
         } else if ($kriteria == "bulan_berjalan") {
             $isiFilter  = Carbon::now();
-        } else if ($kriteria == "semua") {
+        } else if ($kriteria == "berdasarkan_bulan_map") {
         } else if ($kriteria == "berdasarkan_tanggal_map") {
+        } else if ($kriteria == "semua") {
         }
 
+        // DB::enableQueryLog();
         $data = Logbook::getPerformanceAgenByPeriode($kriteria, $isiFilter);
+        // dd(DB::getQueryLog());
         return response()->json(
             array(
                 'status' => 'ok',
