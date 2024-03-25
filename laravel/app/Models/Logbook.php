@@ -79,20 +79,24 @@ class Logbook extends Model
             // DB::enableQueryLog();
             $totalPangkalan100Persen = DB::table(DB::raw('(' . $subQuery->toSql() . ') as SQ_MAP'))
                 ->select(DB::raw("sum(hitung) total"), 'kodeagen', 'namaagen')
-                // ->selectRaw('sum(SQ_MAP.hitung) total, SQ_MAP.kodeagen,SQ_MAP.namaagen')
                 ->groupBy(['kodeagen'], ['namaagen'])
                 ->mergeBindings($subQuery)
                 ->pluck('total', 'kodeagen');
             // dd($totalPangkalan100Persen);
             // dd($persentasePangkalan100Persen);
 
+            $subQuery = DB::table('trlogbookmap as tlm')->select('tlm.kodeagen', 'tlm.idpangkalan')
+                ->where('tlm.tanggal', '>=', $isiFilter[0])
+                ->where('tlm.tanggal', '<=', $isiFilter[1])
+                ->groupBy(['tlm.kodeagen'], ['tlm.idpangkalan']);
+
             // DB::enableQueryLog();
-            $totalPangkalan = self::on()->select('kodeagen', DB::raw("count distinct('idpangkalan') banyakpangkalan"))
-                ->where('tanggal', '>=', $isiFilter[0])
-                ->where('tanggal', '<=', $isiFilter[1])
-                ->groupBy('kodeagen')
+            $totalPangkalan = DB::table(DB::raw('(' . $subQuery->toSql() . ') as SQ_HITUNG'))
+                ->select(DB::raw("count(1) banyakpangkalan"), 'kodeagen')
+                ->groupBy(['kodeagen'])
+                ->mergeBindings($subQuery)
                 ->pluck('banyakpangkalan', 'kodeagen');
-            dd($totalPangkalan);
+            // dd($totalPangkalan);
             // dd(DB::getQueryLog());
 
             foreach ($data as $dataPersentase) {
@@ -133,6 +137,25 @@ class Logbook extends Model
         // DB::enableQueryLog();
         $persentasePerAgen = self::getPersentaseMapPerAgen($kriteria, $isiFilter, $kodeAgen);
         // dd(DB::getQueryLog());
+        // dd($persentasePerAgen);
+
+        foreach ($persentasePerAgen as $namaPangkalan => $persentase) {
+            // echo "$x : $y <br>";
+            // echo "$y->$x <br>";
+            // dd($persentasePerAgen[$namaPangkalan]);
+            if ($persen == 'kurang dari') {
+                // berarti yang >= 100% yang dihilangkan, karena akan menampilkan yang kurang dari 100% saja
+                if ($persentasePerAgen[$namaPangkalan] >= 100) {
+                    unset($persentasePerAgen[$namaPangkalan]);
+                }
+            } elseif ($persen == 'lebih dari') {
+                // berarti yang < 105% yang dihilangkan, karena akan menampilkan yang lebih dari 105% saja
+                if ($persentasePerAgen[$namaPangkalan] < 105) {
+                    unset($persentasePerAgen[$namaPangkalan]);
+                }
+            }
+        }
+
         $persentase = collect((object)$persentasePerAgen);
 
         // $listPangkalan = self::getListPangkalanPerAgen($kriteria, $isiFilter, $kodeAgen);
