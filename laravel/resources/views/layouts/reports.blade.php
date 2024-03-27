@@ -314,9 +314,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('charts.performanceagen') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Buying Power</p>
+                                        <p>Performa Agen</p>
                                     </a>
                                 </li>
                             </ul>
@@ -415,7 +415,7 @@
                                 </li>
                             </ul>
                         </li> --}}
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-database"></i>
                                 <p>
@@ -431,7 +431,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li class="nav-item menu-open">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-table"></i>

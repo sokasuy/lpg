@@ -65,7 +65,7 @@ class LogbookController extends Controller
         //
     }
 
-    public function reportPerformanceagen()
+    public function reportPerformanceAgen()
     {
         return view('reports.logbook');
     }
@@ -103,5 +103,10 @@ class LogbookController extends Controller
             ),
             200
         );
+    }
+
+    public function chartPerformanceAgen()
+    {
+        return view('charts.performa');
     }
 }

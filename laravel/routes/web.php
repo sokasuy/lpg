@@ -36,8 +36,11 @@ Route::middleware(['auth'])->group(
         Route::post('/home/refresh-agen-map-chart', [HomeController::class, 'refreshAgenMapChart'])->name('home.refreshagenmapchart');
         Route::post('/home/refresh-pangkalan-map-chart', [HomeController::class, 'refreshPangkalanMapChart'])->name('home.refreshpangkalanmapchart');
 
-        //PAGES REPORTS LOGBOOK
-        Route::get('/reports/performance-agen', [LogbookController::class, 'reportPerformanceagen'])->name('reports.performanceagen');
+        //PAGES REPORTS PERFORMANCE AGEN
+        Route::get('/reports/performance-agen', [LogbookController::class, 'reportPerformanceAgen'])->name('reports.performanceagen');
         Route::post('/reports/get-performance-agen', [LogbookController::class, 'getPerformanceAgen'])->name('reports.getperformanceagen');
+
+        //PAGES CHARTS PERFORMANCE AGEN
+        Route::get('/charts/performance-agen', [LogbookController::class, 'chartPerformanceAgen'])->name('charts.performanceagen');
     }
 );

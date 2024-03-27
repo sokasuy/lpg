@@ -9,7 +9,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                with font-awesome or any other icon font library -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            with font-awesome or any other icon font library -->
             <li class="nav-item">
                 <a href="{{ route('dashboard.home') }}" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -97,9 +97,9 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('charts.performanceagen') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Buying Power</p>
+                            <p>Performa Agen</p>
                         </a>
                     </li>
                 </ul>
@@ -198,7 +198,7 @@
                             </li>
                             </ul>
                         </li> --}}
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-database"></i>
                     <p>
@@ -214,7 +214,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-table"></i>
@@ -705,8 +705,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group cbo-filter-kategori-map-agen" id="cbo_agen_berdasarkan_bulan">
-                                <select class="form-control select2bs4-periode" id="cbo_bulanperagen"
-                                    style="width: 100%;">
+                                <select class="form-control select2bs4-periode" id="cbo_bulanperagen" style="width: 100%;">
                                 </select>
                             </div>
                             <div class="form-group cbo-filter-kategori-map-agen" id="cbo_agen_berdasarkan_tanggal">
